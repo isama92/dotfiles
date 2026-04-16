@@ -1,0 +1,29 @@
+# Ghostty's website: https://ghostty.org/docs/config
+# reload config: Command + Shift + comma
+
+gtk-titlebar = false
+gtk-wide-tabs = false
+window-height = 33
+window-width = 100
+background-opacity = 0.90
+shell-integration-features = no-cursor
+cursor-style = block 
+shell-integration = zsh
+window-theme = light
+
+#theme = Builtin Solarized Light
+theme = Gruvbox Light
+
+font-family = "FiraMono Nerd Font"
+font-thicken = true
+font-size = 16
+
+mouse-hide-while-typing = true
+
+# multiline with shift enter
+keybind = shift+enter=text:\x1b\r
+keybind = ctrl+w=toggle_tab_overview
+keybind = ctrl+n=new_tab
+keybind = ctrl+f=toggle_fullscreen
+keybind = ctrl+q=toggle_window_decorations
+

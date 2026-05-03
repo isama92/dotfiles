@@ -1,8 +1,12 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-alias vim="nvim"
+[ -f ~/.local/share/fzf/key-bindings.bash ] && source ~/.local/share/fzf/key-bindings.bash
 
+# aliases
+alias vim="nvim"
+alias ls="eza"
+alias l="ls --icons=always --colour=always --colour-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
 alias gaa="git add -A"
 alias gst="git status"
 alias gcmsg="git commit -m"

@@ -1,0 +1,3 @@
+# it breaks on vim updates
+alias vim="$(ls -d /c/tools/vim/vim*/vim.exe 2>/dev/null | sort -V | tail -1)"
+

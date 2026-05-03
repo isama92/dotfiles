@@ -1,3 +1,6 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+
 # it breaks on vim updates
 alias vim="$(ls -d /c/tools/vim/vim*/vim.exe 2>/dev/null | sort -V | tail -1)"
 

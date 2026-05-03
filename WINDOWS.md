@@ -23,7 +23,7 @@ Install [Chocolatey](https://chocolatey.org/install) following the official inst
 Then, in a terminal **running as Administrator**:
 
 ```powershell
-choco install chezmoi fzf ripgrep eza starship vim
+choco install chezmoi fzf ripgrep eza starship vim neovim
 ```
 
 - `chezmoi` — dotfiles manager.
@@ -31,7 +31,8 @@ choco install chezmoi fzf ripgrep eza starship vim
 - `ripgrep` — fast recursive grep (`rg`), used as the search backend in Vim.
 - `eza` — modern `ls` replacement (used by the `ls` alias in `.bashrc`).
 - `starship` — cross-shell prompt (loaded from `.bashrc`).
-- `vim` — full Vim build with `+python3` (Git Bash ships only a minimal MSYS Vim). Installs to `C:\tools\vim\vim<version>\`. The `.bashrc` aliases `vim` to the choco shim at `/c/ProgramData/chocolatey/bin/vim.exe`.
+- `vim` — full Vim build with `+python3` (Git Bash ships only a minimal MSYS Vim). Installs to `C:\tools\vim\vim<version>\`. The `.bashrc` aliases `vim` to the highest-versioned install dir.
+- `neovim` — Neovim. The `.bashrc` exports `XDG_CONFIG_HOME=~/.config` and `XDG_DATA_HOME=~/.local/share`, so nvim reads its config and plugins from the same paths as on Linux.
 
 ## 3. Python
 
@@ -53,8 +54,8 @@ mkdir -p ~/.cache
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# vim-plug for Neovim (Windows path)
-curl -fLo ~/AppData/Local/nvim-data/site/autoload/plug.vim --create-dirs \
+# vim-plug for Neovim (uses XDG_DATA_HOME from .bashrc, same path as Linux)
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 

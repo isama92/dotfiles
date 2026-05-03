@@ -3,3 +3,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 alias vim="nvim"
 
+alias gp="git push"
+alias gst="git status"
+alias gcmsg="git commit -m"
+

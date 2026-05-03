@@ -7,8 +7,8 @@ Personal configuration files managed with [chezmoi](https://www.chezmoi.io/).
 ## What's included
 
 - Ghostty terminal configuration
-- Vim configuration
-- Zsh configuration
+- Vim configuration - See [VIM.md](VIM.md)
+- Zsh configuration - See [OMZ.md](OMZ.md)
 
 ## Requirements
 

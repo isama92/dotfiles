@@ -1,6 +1,5 @@
 syntax on
 
-set guicursor=
 set nohlsearch
 set hidden
 set noerrorbells
@@ -27,9 +26,10 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'gruvbox-community/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
-colorscheme gruvbox
+set background=light
+colorscheme solarized
 

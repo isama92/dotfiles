@@ -1,6 +1,8 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+eval "$(starship init bash)"
+
 [ -f ~/.local/share/fzf/key-bindings.bash ] && source ~/.local/share/fzf/key-bindings.bash
 
 # aliases

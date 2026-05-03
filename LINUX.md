@@ -2,15 +2,18 @@
 
 Setup notes for managing this dotfiles repo on Linux (Ubuntu/Debian).
 
-## 1. Install chezmoi
+## 1. Install chezmoi and apply this repo
+
+One-shot — install chezmoi, clone this repo, and apply immediately:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)"
+sh -c "$(curl -fsLS https://get.chezmoi.io)" -- init --apply isama92
 ```
 
-## 2. Initialize and apply
+Or two-step if you want to preview first:
 
 ```bash
+sh -c "$(curl -fsLS https://get.chezmoi.io)"
 chezmoi init git@github.com:isama92/dotfiles.git
 chezmoi diff      # preview
 chezmoi apply

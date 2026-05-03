@@ -9,4 +9,5 @@ README.md
 .bashrc
 .bash_profile
 .wezterm.lua
+.config/starship.toml
 {{- end }}

@@ -8,4 +8,5 @@ README.md
 {{- if ne .chezmoi.os "windows" }}
 .bashrc
 .bash_profile
+.wezterm.lua
 {{- end }}

@@ -44,12 +44,12 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'vuciv/vim-bujo'
 Plug 'tpope/vim-dispatch'
 Plug 'theprimeagen/vim-be-good'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
 
 set background=light
-colorscheme solarized
+colorscheme solarized8
 
 if executable('rg')
     let g:rg_derive_root = 'true'

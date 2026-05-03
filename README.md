@@ -2,6 +2,8 @@
 
 Personal configuration files managed with [chezmoi](https://www.chezmoi.io/).
 
+> On Windows? See [WINDOWS.md](WINDOWS.md) for the platform-specific bootstrap (Git for Windows, Chocolatey, chezmoi, WezTerm).
+
 ## What's included
 
 - Ghostty terminal configuration

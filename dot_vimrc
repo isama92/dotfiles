@@ -1,3 +1,6 @@
+set runtimepath^=~/.vim
+set runtimepath+=~/.vim/after
+
 syntax on
 
 set nohlsearch

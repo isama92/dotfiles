@@ -13,7 +13,7 @@ window-theme = light
 
 theme = Gruvbox Light
 
-font-family = "FiraMono Nerd Font"
+font-family = "MesloLGS NF"
 font-thicken = true
 font-size = 16
 

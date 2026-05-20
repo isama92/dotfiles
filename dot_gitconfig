@@ -1,0 +1,28 @@
+[user]
+	name = Stefano Borzoni
+	email = borzoni@vcsw.nl
+	signingkey = 2E842E80203007C89ACF6932D53611867CB13206
+    #email = isama92@gmail.com
+    #signingkey = 89AFE00C4EA03DC8E4BE8152E519A16BAD5EE49F
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[pull]
+    rebase = false
+[push]
+	default = current
+	autoSetupRemote = true
+[core]
+	excludesfile = /home/isama92/.gitignore
+[safe]
+	directory = /var/www/html
+	directory = /var/www/html
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[tag]
+	gpgsign = true

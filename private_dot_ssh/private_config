@@ -1,0 +1,118 @@
+Host *
+	IdentityAgent ~/.1password/agent.sock
+
+Host dhprod
+    Hostname 136.144.250.20
+    Port 22
+    User datahub
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/datahub/datahub.vcsw.nl/current && exec $SHELL --login
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhtest
+    Hostname 136.144.204.52
+    Port 22
+    User test
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/test/datahub-test.vcsw.nl/current && exec $SHELL --login
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhmock
+    Hostname 136.144.204.52
+    Port 22
+    User forge
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/forge/datahub-mock.vcsw.nl/current && exec $SHELL --login
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhpen
+    Hostname 136.144.240.54
+    Port 22
+    User datahub
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/datahub/datahub-pentest.vcsw.nl/current && exec $SHELL --login
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhfallback
+    Hostname 136.144.233.114
+    Port 22
+    User datahub
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/datahub/datahub-fallback.vcsw.nl/current && exec $SHELL --login
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+
+
+Host dhdb
+    Hostname 136.144.240.239
+    Port 22
+    User forge
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhprodf
+    Hostname 136.144.250.20
+    Port 22
+    User datahub
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhtestf
+    Hostname 136.144.204.52
+    Port 22
+    User test
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host dhredis
+    Hostname 136.144.238.104
+    Port 22
+    User forge
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host vcswai
+    Hostname 136.144.238.188
+    Port 22
+    User forge
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host orion
+    Hostname 192.168.1.9
+    Port 22
+    User isama92
+    ForwardAgent yes
+    IdentityFile ~/.ssh/isama92
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host andromeda
+    Hostname 192.168.1.10
+    Port 22
+    User isama92
+    ForwardAgent yes
+    IdentityFile ~/.ssh/isama92
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+

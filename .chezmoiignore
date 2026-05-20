@@ -1,8 +1,15 @@
+# Documentation — lives in the repo, not in $HOME
 README.md
 *.md
 
+# SSH keys (belt-and-braces in case you ever add ~/.ssh wholesale)
+.ssh/id_*
+.ssh/known_hosts
+.ssh/authorized_keys
+
 {{- if ne .chezmoi.os "linux" }}
 .zshrc
+.p10k.zsh
 .config/ghostty
 {{- end }}
 {{- if ne .chezmoi.os "windows" }}
@@ -11,3 +18,4 @@ README.md
 .wezterm.lua
 .config/starship.toml
 {{- end }}
+

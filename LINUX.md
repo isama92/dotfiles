@@ -67,8 +67,7 @@ The plugin list is already declared in `.zshrc` — no manual edit needed.
 ## 4. Neovim
 
 ```bash
-sudo apt install neovim python3-pip
-pip3 install --user neovim   # Python provider, optional
+sudo apt install neovim
 ```
 
 Install vim-plug:

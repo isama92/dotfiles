@@ -61,8 +61,6 @@ Host dhfallback
     RequestTTY yes
     SetEnv TERM=xterm-256color
 
-
-
 Host dhdb
     Hostname 136.144.240.239
     Port 22
@@ -105,6 +103,16 @@ Host vcswai
     User forge
     ForwardAgent yes
     IdentityFile ~/.ssh/id_rsa
+    RequestTTY yes
+    SetEnv TERM=xterm-256color
+
+Host viertest
+    Hostname 136.144.214.145
+    Port 22
+    User vier
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa
+    RemoteCommand cd /home/vier/vier.staging.vcsw.nl/current && exec $SHELL --login
     RequestTTY yes
     SetEnv TERM=xterm-256color
 

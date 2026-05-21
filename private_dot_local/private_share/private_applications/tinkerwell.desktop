@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Tinkerwell
+Comment=The must-have code runner for Laravel developers
+Exec=/opt/tinkerwell/tinkerwell %U
+Icon=/opt/tinkerwell/tinkerwell.png
+Terminal=false
+Categories=Development;IDE;
+StartupWMClass=Tinkerwell
+MimeType=application/x-php;
+

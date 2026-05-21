@@ -1,7 +1,7 @@
 [user]
 	name = Stefano Borzoni
 	email = borzoni@vcsw.nl
-	signingkey = 2E842E80203007C89ACF6932D53611867CB13206
+	signingkey = 9CE3BEBF2D657FFD9CA546A4244E417940F89D0C
     #email = isama92@gmail.com
     #signingkey = 89AFE00C4EA03DC8E4BE8152E519A16BAD5EE49F
 [init]

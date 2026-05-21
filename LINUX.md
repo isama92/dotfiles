@@ -14,6 +14,8 @@ Or two-step if you want to preview first:
 
 ```bash
 sh -c "$(curl -fsLS https://get.chezmoi.io)"
+mv bin/chezmoi .local/bin/chezmoi
+rmdir bin
 chezmoi init git@github.com:isama92/dotfiles.git
 chezmoi diff      # preview
 chezmoi apply

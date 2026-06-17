@@ -1,0 +1,11 @@
+{
+  "effortLevel": "xhigh",
+  "theme": "light",
+  "skipAutoPermissionPrompt": true,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 2,
+    "refreshInterval": 5
+  }
+}

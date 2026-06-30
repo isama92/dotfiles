@@ -10,13 +10,13 @@ dep_build() {
 
 dep() {
   docker run --rm -it \
-    -v $(pwd):/app \
-    -v ~/.ssh:/tmp/.host-ssh:ro \
-    -v ${SSH_AUTH_SOCK}:/ssh-agent \
+    -v "$(pwd)":/app \
+    -v "$HOME/.ssh":/tmp/.host-ssh:ro \
+    -v "${SSH_AUTH_SOCK}":/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
     -w /app \
     --entrypoint sh \
     dep \
-    -c "cp -r /tmp/.host-ssh /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && php vendor/bin/dep $*"
+    -c 'cp -r /tmp/.host-ssh /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && php vendor/bin/dep "$@"' sh "$@"
 }
 

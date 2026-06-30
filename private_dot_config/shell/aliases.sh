@@ -7,7 +7,7 @@ alias update="sudo apt update -qq && sudo apt dist-upgrade && sudo apt autoremov
 alias jp="cd ~/Dev/jupyter-notebook;source ./venv/bin/activate;jupyter lab"
 alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
 alias a="[ -f sail ] && sh sail || sh vendor/bin/sail php artisan"
-alias feishin="/opt/Feishin/Feishin-linux-x86_64.AppImage --no-sandbox > /opt/Feishin/log 2> /opt/Feishin/error_log &;disown;exit"
+alias feishin="/opt/Feishin/Feishin-linux-x86_64.AppImage --no-sandbox > /opt/Feishin/log 2> /opt/Feishin/error_log & disown; exit"
 alias mic="pw-loopback --latency=128/48000"
 alias wgup="sudo wg-quick up wg0"
 alias wgdown="sudo wg-quick down wg0"

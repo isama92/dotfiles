@@ -84,6 +84,13 @@ setopt AUTO_PUSHD HIST_IGNORE_DUPS PUSHD_IGNORE_DUPS
 zstyle ':completion::complete:n-kill::bits' matcher 'r:|=** l:|=*'
 ### END ###
 
+# fzf integration (file/dir search). Key bindings:
+#   Ctrl-R -> ZNT history search (kept below; do not let fzf take it)
+#   Ctrl-T -> fzf file search
+#   Alt-C  -> fzf cd into a subdirectory
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+bindkey '^R' znt-history-widget   # fzf also binds Ctrl-R; reclaim it for ZNT
+
 for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do
   [ -r "$f" ] && . "$f"
 done

@@ -16,10 +16,6 @@ shopt -s histappend
 shopt -s checkwinsize
 shopt -s globstar 2>/dev/null
 
-{{ if eq .chezmoi.os "linux" }}
-# make less friendly for non-text input (Linux only)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-{{ end }}
 # --- Completion ---
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -55,8 +51,8 @@ else
   esac
 fi
 
-# --- fzf key bindings ---
-[ -f ~/.local/share/fzf/key-bindings.bash ] && source ~/.local/share/fzf/key-bindings.bash
+# --- fzf key bindings: Ctrl-R history, Ctrl-T file search, Alt-C cd ---
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
 
 # --- Shared shell config (env, aliases, functions) ---
 for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do

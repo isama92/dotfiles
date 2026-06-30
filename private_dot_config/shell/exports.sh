@@ -29,3 +29,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export PHP_INI_SCAN_DIR="$HOME/.local/share/php/bin:$PHP_INI_SCAN_DIR"
 export QT_QPA_PLATFORM="wayland;xcb"
 
+# less: preview archives/binaries via lesspipe (no-op where absent, e.g. git bash) #
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+

@@ -1,0 +1,70 @@
+# ~/.bashrc — managed by chezmoi (bash on Linux + git bash)
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# --- History ---
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend
+
+# --- Shell behaviour ---
+shopt -s checkwinsize
+shopt -s globstar 2>/dev/null
+
+{{ if eq .chezmoi.os "linux" }}
+# make less friendly for non-text input (Linux only)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+{{ end }}
+# --- Completion ---
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# --- Prompt: starship if installed, otherwise a colored fallback ---
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init bash)"
+else
+  if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+      debian_chroot=$(cat /etc/debian_chroot)
+  fi
+
+  case "$TERM" in
+      xterm-color|*-256color) color_prompt=yes;;
+  esac
+
+  if [ "$color_prompt" = yes ]; then
+      PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  else
+      PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  fi
+  unset color_prompt
+
+  case "$TERM" in
+  xterm*|rxvt*)
+      PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+      ;;
+  esac
+fi
+
+# --- fzf key bindings ---
+[ -f ~/.local/share/fzf/key-bindings.bash ] && source ~/.local/share/fzf/key-bindings.bash
+
+# --- Shared shell config (env, aliases, functions) ---
+for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do
+  [ -r "$f" ] && . "$f"
+done
+
+# --- bash-only alias overrides ---
+alias gaa="git add -A"
+alias gst="git status"
+alias gcmsg="git commit -m"
+alias gp="git push"

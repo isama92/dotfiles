@@ -1,5 +1,8 @@
 # shellcheck shell=bash
 
+# eza powers the ls aliases below; warn (do not disable) if it is ever missing
+command -v eza >/dev/null 2>&1 || printf '%s\n' "warning: eza not found, ls aliases will break. Install it: https://github.com/eza-community/eza#installation" >&2
+
 alias ls="eza"
 alias l="ls --icons=always --colour=always --colour-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
 alias vim="nvim"

@@ -20,3 +20,19 @@ dep() {
     -c 'cp -r /tmp/.host-ssh /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && php vendor/bin/dep "$@"' sh "$@"
 }
 
+# WireGuard
+
+wgup() {
+  local host="comfycave.ddns.me" ip
+  ip=$(curl -s --max-time 5 "https://1.1.1.1/dns-query?name=${host}&type=A" \
+    -H 'accept: application/dns-json' | grep -oP '"data":"\K[0-9.]+' | head -n1)
+  if [ -n "$ip" ]; then
+    sudo sed -i "/[[:space:]]${host}\$/d" /etc/hosts
+    echo "$ip $host" | sudo tee -a /etc/hosts >/dev/null
+    echo "wgup: pinned $host -> $ip"
+  else
+    echo "wgup: DoH lookup failed; using existing /etc/hosts entry" >&2
+  fi
+  sudo wg-quick up wg0
+}
+

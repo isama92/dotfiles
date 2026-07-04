@@ -14,8 +14,19 @@ Platform-specific bootstrap:
 - **Neovim** config (cross-platform)
 - **Zsh** config (Linux only)
 - **Bash** config (Windows only)
+- **Git** config with [delta](https://github.com/dandavison/delta) as pager / diff viewer (cross-platform)
+- **mpv** player config — scripts and keybindings (cross-platform)
 
 OS-specific files are gated by `.chezmoiignore` so each machine only gets the relevant ones.
+
+## Required external tools
+
+Some configs reference tools that chezmoi does **not** install for you. They must be present on the machine or the config will break:
+
+- **[delta](https://dandavison.github.io/delta/installation.html)** — set as git's `pager` and `diffFilter` in `.gitconfig`. Without it, `git diff`, `git log`, and `git add -p` fail.
+- **[mpv](https://mpv.io/installation/)** — the `.config/mpv` config (scripts, keybindings) only takes effect once mpv itself is installed.
+
+Install commands live in the platform bootstrap files ([LINUX.md](LINUX.md), [WINDOWS.md](WINDOWS.md)).
 
 ## Day-to-day workflow
 

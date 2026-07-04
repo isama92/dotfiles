@@ -88,6 +88,7 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 - [eza](https://eza.rocks/) — replaces `ls`.
 - [nvm](https://github.com/nvm-sh/nvm) — installed at `~/.nvm`.
 - [Claude Code](https://claude.com/claude-code) — used by the `update` alias.
+- [delta](https://dandavison.github.io/delta/installation.html) — git pager / diff viewer referenced by `.gitconfig`. `sudo apt install git-delta` (or grab the `.deb` from [releases](https://github.com/dandavison/delta/releases) if the apt version is old). Without it, `git diff` / `git log` fail.
 
 ## 7. Dev stack
 
@@ -104,6 +105,7 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 
 - [Feishin](https://github.com/jeffvli/feishin) AppImage at `/opt/Feishin/Feishin-linux-x86_64.AppImage`.
 - [Flameshot](https://flameshot.org/) — the reason for `QT_QPA_PLATFORM=wayland` in `.zshrc`.
+- [mpv](https://mpv.io/installation/) — media player; the `.config/mpv` config (scripts, keybindings) only applies once installed. `sudo apt install mpv`.
 
 ## 10. Expected directories
 

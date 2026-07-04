@@ -23,7 +23,7 @@ Install [Chocolatey](https://chocolatey.org/install) following the official inst
 Then, in a terminal **running as Administrator**:
 
 ```powershell
-choco install chezmoi fzf ripgrep eza starship neovim
+choco install chezmoi fzf ripgrep eza starship neovim git-delta mpv
 ```
 
 - `chezmoi` — dotfiles manager.
@@ -32,6 +32,8 @@ choco install chezmoi fzf ripgrep eza starship neovim
 - `eza` — modern `ls` replacement; aliased as `ls` in `.bashrc`.
 - `starship` — cross-shell prompt (loaded from `.bashrc`).
 - `neovim` — Neovim. The `.bashrc` aliases `vim` to `nvim` and exports `XDG_CONFIG_HOME=~/.config` / `XDG_DATA_HOME=~/.local/share`, so nvim reads its config and plugins from the same paths as on Linux.
+- `git-delta` — git pager / diff viewer referenced by `.gitconfig` (provides the `delta` binary). Without it, `git diff` / `git log` fail. See [installation docs](https://dandavison.github.io/delta/installation.html).
+- `mpv` — media player; the `.config/mpv` config (scripts, keybindings) only applies once installed. See [installation docs](https://mpv.io/installation/).
 
 ## 3. Python
 

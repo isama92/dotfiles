@@ -4,16 +4,28 @@
 	signingkey = 9CE3BEBF2D657FFD9CA546A4244E417940F89D0C
     #email = isama92@gmail.com
     #signingkey = 89AFE00C4EA03DC8E4BE8152E519A16BAD5EE49F
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = true      # or `dark = true`, or omit for auto-detection
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Catppuccin Latte
+    true-color = always
 [init]
 	defaultBranch = main
 [commit]
 	gpgsign = true
+[interactive]
+    diffFilter = delta --color-only
 [pull]
     rebase = false
 [push]
 	default = current
 	autoSetupRemote = true
+[merge]
+    conflictStyle = zdiff3
 [core]
+    pager = delta
 	excludesfile = /home/isama92/.gitignore
 [safe]
 	directory = /var/www/html

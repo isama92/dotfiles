@@ -11,7 +11,7 @@ cursor-style = block
 shell-integration = zsh
 window-theme = light
 
-theme = Gruvbox Light
+theme = Catppuccin Latte
 
 font-family = "MesloLGS NF"
 font-thicken = true

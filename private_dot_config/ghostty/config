@@ -21,8 +21,13 @@ mouse-hide-while-typing = true
 
 # multiline with shift enter
 keybind = shift+enter=text:\x1b\r
-keybind = ctrl+w=toggle_tab_overview
-keybind = ctrl+n=new_tab
-keybind = ctrl+f=toggle_fullscreen
-keybind = ctrl+q=toggle_window_decorations
+
+#   new tab    -> ctrl+shift+t
+#   fullscreen -> ctrl+enter
+#   new window -> ctrl+shift+n
+#   search     -> ctrl+shift+f
+keybind = ctrl+w=unbind
+keybind = ctrl+n=unbind
+keybind = ctrl+f=unbind
+keybind = ctrl+q=unbind
 

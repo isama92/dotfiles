@@ -15,9 +15,10 @@ local options = require "mp.options"
 local opts = {
     intro_patterns = "opening;intro",             -- ; separated, case-insensitive substrings
     outro_patterns = "ending;credit;outro;preview",
+    exclude_patterns = "credits end;post-credit;post credit",  -- never show for these (e.g. post-credits scenes)
     bottom_margin = 200,   -- pixels between the button's bottom edge and the window bottom
     right_margin = 60,     -- pixels between the button's right edge and the window right
-    key = "SPACE",         -- key that triggers the button while it is visible (overrides pause during intro/outro)
+    key = "ENTER",         -- key that triggers the button while it is visible (Space stays free to pause the intro/outro)
 }
 options.read_options(opts, "skip_button")
 
@@ -41,6 +42,7 @@ local function split(s)
 end
 local intro_pats = split(opts.intro_patterns)
 local outro_pats = split(opts.outro_patterns)
+local exclude_pats = split(opts.exclude_patterns)
 
 local function match_any(title, pats)
     if not title then return false end
@@ -52,6 +54,7 @@ local function match_any(title, pats)
 end
 
 local function category(title)
+    if match_any(title, exclude_pats) then return nil end
     if match_any(title, intro_pats) then return "intro" end
     if match_any(title, outro_pats) then return "outro" end
     return nil

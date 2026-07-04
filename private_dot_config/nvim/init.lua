@@ -642,8 +642,6 @@ require('lazy').setup({
           },
         },
 
-        stylua = {}, -- Used to format Lua code
-
         -- Special Lua Config, as recommended by neovim help docs
         lua_ls = {
           on_init = function(client)
@@ -688,7 +686,7 @@ require('lazy').setup({
       -- You can press `g?` for help in this menu.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        -- You can add other tools here that you want Mason to install
+        'stylua', -- Lua formatter (used by conform.nvim; installed by Mason, not run as an LSP)
       })
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -918,11 +916,17 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
+    -- We're on Neovim 0.12.x (via bob), so use nvim-treesitter's maintained "main"
+    -- branch. The old "master" branch is archived and no longer gets parser updates.
     branch = 'main',
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
     config = function()
-      -- Ensure basic parsers are installed
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      -- Ensure the parsers we care about are installed. Parsers are compiled locally
+      -- (this Neovim build ships none), installed asynchronously, and no-op if present.
+      local parsers = {
+        'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline',
+        'query', 'vim', 'vimdoc', 'php', 'phpdoc', 'json', 'yaml',
+      }
       require('nvim-treesitter').install(parsers)
 
       ---@param buf integer
@@ -933,16 +937,9 @@ require('lazy').setup({
         -- Enable syntax highlighting and other treesitter features
         vim.treesitter.start(buf, language)
 
-        -- Enable treesitter based folds
-        -- For more info on folds see `:help folds`
-        -- vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-        -- vim.wo.foldmethod = 'expr'
-
-        -- Check if treesitter indentation is available for this language, and if so enable it
-        -- in case there is no indent query, the indentexpr will fallback to the vim's built in one
+        -- Enable treesitter based indentation when the language provides an indents query;
+        -- otherwise indentexpr falls back to Vim's built-in indentation.
         local has_indent_query = vim.treesitter.query.get(language, 'indents') ~= nil
-
-        -- Enable treesitter based indentation
         if has_indent_query then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
       end
 
@@ -960,7 +957,7 @@ require('lazy').setup({
             -- Enable the parser if it is already installed
             treesitter_try_attach(buf, language)
           elseif vim.tbl_contains(available_parsers, language) then
-            -- If a parser is available in `nvim-treesitter`, auto-install it and enable it after the installation is done
+            -- If a parser is available in `nvim-treesitter`, auto-install it and enable it after
             require('nvim-treesitter').install(language):await(function() treesitter_try_attach(buf, language) end)
           else
             -- Try to enable treesitter features in case the parser exists but is not available from `nvim-treesitter`

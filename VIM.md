@@ -4,14 +4,24 @@ PHP/Laravel-focused Neovim setup, used as a PhpStorm replacement. The config
 lives in `private_dot_config/nvim` (deployed to `~/.config/nvim`) and is based on
 [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
 
+## Neovim version (managed by bob)
+
+Neovim is installed and version-managed by [bob](https://github.com/MordechaiHadad/bob),
+not by apt (Ubuntu's package lags). The active version is **0.12.3**. bob installs
+into `~/.local/share/bob`; `~/.local/share/bob/nvim-bin` is prepended to `PATH` in
+`shell/exports.sh` so its `nvim` wins over any system `/usr/bin/nvim`. Switch or add
+versions with `bob use <version>` / `bob install <version>`, and see `LINUX.md` for
+first-time install.
+
 ## Why this version of kickstart
 
-kickstart's current HEAD uses Neovim's built-in `vim.pack` package manager, which
-needs Neovim 0.12+ (nightly). This config is pinned to kickstart's last
-`lazy.nvim`-based commit (`cd7adee`) so it runs on stable Neovim 0.11.x. The
-plugin manager is therefore [lazy.nvim](https://github.com/folke/lazy.nvim),
-which is also what most current tutorials use. If you later move to Neovim 0.12
-stable, you can re-evaluate switching to the `vim.pack` variant.
+This config is pinned to kickstart's last `lazy.nvim`-based commit (`cd7adee`) rather
+than the current HEAD, which migrated to Neovim's built-in `vim.pack` manager. That is
+a deliberate choice: [lazy.nvim](https://github.com/folke/lazy.nvim) is mature and is
+what most tutorials use, and migrating to `vim.pack` would mean re-applying all the
+customisations for little gain. nvim-treesitter uses its maintained `main` branch (the
+old `master` branch is archived). Both `main`-branch treesitter and the `vim.pack`
+kickstart require Neovim 0.12+, which is why the version is managed by bob.
 
 ## What's set up
 
@@ -36,10 +46,15 @@ chezmoi does not install these. They must be present or parts of the config
 degrade or break:
 
 - **Node.js** - Intelephense is a Node package that Mason installs; needs `node` on PATH.
+- **`tree-sitter` CLI + a C compiler** - the treesitter `main` branch builds parsers with the `tree-sitter` CLI (`npm install -g tree-sitter-cli`), which then compiles generated C with `cc`/`gcc`. This Neovim build ships no bundled parsers, so without both, syntax highlighting will not work.
 - **[ripgrep](https://github.com/BurntSushi/ripgrep)** (`rg`) - powers Telescope live grep.
 - **[fd](https://github.com/sharkdp/fd)** (optional) - faster file picker. On Ubuntu: `sudo apt install fd-find` (binary is `fdfind`, Telescope auto-detects it). Without it, Telescope falls back to ripgrep.
 - **A Nerd Font** (optional) - for file-type icons. Install one in the terminal, then set `vim.g.have_nerd_font = true` near the top of `init.lua`. Icons are off by default.
-- **Intelephense licence** (optional) - the free tier is wired up. To unlock rename, find-references, auto-import `use`, and generate-constructor, buy a key at https://intelephense.com and set `licenceKey` in the `servers.intelephense.init_options` block of `init.lua`.
+- **Intelephense licence** (optional) - the free tier is wired up. To unlock rename, find-references, auto-import `use`, and generate-constructor, buy a key at https://intelephense.com. Two ways to apply it:
+  - Set `licenceKey` in the `servers.intelephense.init_options` block of `init.lua`. Simple, but do not commit a real key to this repo if it is shared.
+  - Repo-safe: leave `licenceKey = nil` and put the bare key in `~/intelephense/licence.txt` (Intelephense reads it on startup). This keeps the key out of the dotfiles entirely.
+
+  Either way, restart Neovim or run `:LspRestart` in a PHP buffer to apply. To confirm premium is active, `grn` (rename) and `grr` (find references) start working.
 
 ## First-time setup on a new machine
 

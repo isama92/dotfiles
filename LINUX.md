@@ -66,18 +66,34 @@ The plugin list is already declared in `.zshrc` — no manual edit needed.
 
 ## 4. Neovim
 
-```bash
-sudo apt install neovim
-```
-
-Install vim-plug:
+Neovim is version-managed by [bob](https://github.com/MordechaiHadad/bob), not apt
+(Ubuntu's package lags well behind).
 
 ```bash
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# install bob (no sudo; lives in ~/.local/bin)
+curl -fsSL -o /tmp/bob.zip \
+    https://github.com/MordechaiHadad/bob/releases/latest/download/bob-linux-x86_64.zip
+unzip -o /tmp/bob.zip -d /tmp/bob
+install -m 0755 /tmp/bob/bob-linux-x86_64/bob ~/.local/bin/bob
+
+# install and activate Neovim
+bob install 0.12.3
+bob use 0.12.3
 ```
 
-Open nvim and run `:PlugInstall`.
+`shell/exports.sh` already prepends `~/.local/share/bob/nvim-bin` to `PATH`, so open a
+new shell and `nvim` resolves to the bob build.
+
+The editor config (based on kickstart.nvim) is deployed by chezmoi to `~/.config/nvim`
+and bootstraps itself: the first `nvim` launch installs all plugins via lazy.nvim and
+the language servers via Mason. Treesitter parsers need the `tree-sitter` CLI plus a C
+compiler:
+
+```bash
+npm install -g tree-sitter-cli   # uses nvm-provided npm; no sudo
+```
+
+See `VIM.md` for the full setup and shortcuts.
 
 ## 5. Terminal (Ghostty)
 

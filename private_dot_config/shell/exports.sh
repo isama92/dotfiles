@@ -9,6 +9,7 @@ path_prepend() {
 }
 path_prepend "$HOME/.local/share/php/bin"
 path_prepend "$HOME/.local/bin"
+path_prepend "$HOME/.local/share/bob/nvim-bin"
 export PATH
 
 # editor #

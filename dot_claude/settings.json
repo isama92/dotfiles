@@ -1,11 +1,20 @@
 {
-  "effortLevel": "xhigh",
-  "theme": "light",
-  "skipAutoPermissionPrompt": true,
+  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
     "padding": 2,
     "refreshInterval": 5
+  },
+  "effortLevel": "xhigh",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "theme": "light",
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
   }
 }

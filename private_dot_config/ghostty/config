@@ -1,11 +1,10 @@
 # Ghostty's website: https://ghostty.org/docs/config
 # reload config: Command + Shift + comma
 
-gtk-titlebar = false
+gtk-titlebar = true
 gtk-wide-tabs = false
 window-height = 33
 window-width = 100
-background-opacity = 0.90
 shell-integration-features = no-cursor
 cursor-style = block 
 shell-integration = zsh

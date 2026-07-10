@@ -6,6 +6,9 @@
     "padding": 2,
     "refreshInterval": 5
   },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
   "effortLevel": "xhigh",
   "voice": {
     "enabled": true,
@@ -13,8 +16,5 @@
   },
   "theme": "light",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true
-  }
+  "voiceEnabled": true
 }

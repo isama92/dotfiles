@@ -13,8 +13,8 @@
 local options = require "mp.options"
 
 local opts = {
-    intro_patterns = "opening;intro",             -- ; separated, case-insensitive substrings
-    outro_patterns = "ending;credit;outro;preview",
+    intro_patterns = "opening;intro;op",             -- ; separated, case-insensitive substrings
+    outro_patterns = "ending;credit;outro;preview;ed",
     exclude_patterns = "credits end;post-credit;post credit",  -- never show for these (e.g. post-credits scenes)
     bottom_margin = 200,   -- pixels between the button's bottom edge and the window bottom
     right_margin = 60,     -- pixels between the button's right edge and the window right

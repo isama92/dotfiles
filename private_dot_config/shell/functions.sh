@@ -1,13 +1,11 @@
 # shellcheck shell=bash
 
 # Dep
-
 dep_build() {
   echo 'FROM php:8.4-cli
   RUN apt-get update && apt-get install -y openssh-client && rm -rf /var/lib/apt/lists/*
   WORKDIR /app' | docker build --no-cache -t dep -
 }
-
 dep() {
   docker run --rm -it \
     -v "$(pwd)":/app \
@@ -21,7 +19,6 @@ dep() {
 }
 
 # WireGuard
-
 wgup() {
   local host="comfycave.ddns.me" ip
   ip=$(curl -s --max-time 5 "https://1.1.1.1/dns-query?name=${host}&type=A" \
@@ -34,5 +31,14 @@ wgup() {
     echo "wgup: DoH lookup failed; using existing /etc/hosts entry" >&2
   fi
   sudo wg-quick up wg0
+}
+
+ghmerge() {
+  local pr="$1"
+  if [ -z "$pr" ]; then
+    echo "usage: ghmerge <pr-number|url|branch>" >&2
+    return 1
+  fi
+  gh pr checks "$pr" --watch && gh pr merge "$pr" --squash --delete-branch
 }
 

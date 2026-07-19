@@ -95,3 +95,5 @@ for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do
   [ -r "$f" ] && . "$f"
 done
 
+
+. "$HOME/.local/share/../bin/env"

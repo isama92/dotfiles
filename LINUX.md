@@ -105,6 +105,9 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 - [nvm](https://github.com/nvm-sh/nvm) — installed at `~/.nvm`.
 - [Claude Code](https://claude.com/claude-code) — used by the `update` alias.
 - [delta](https://dandavison.github.io/delta/installation.html) — git pager / diff viewer referenced by `.gitconfig`. `sudo apt install git-delta` (or grab the `.deb` from [releases](https://github.com/dandavison/delta/releases) if the apt version is old). Without it, `git diff` / `git log` fail.
+- [zoxide](https://github.com/ajeetdsouza/zoxide) — frecency-based `cd` (`z`, `zi`), initialised by `.zshrc` on every shell start.
+- [fabric](https://github.com/danielmiessler/fabric) — LLM prompt-pattern CLI used by the `ytsummarise` function; needs a one-off `fabric --setup` for API keys and patterns.
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) — how fabric pulls YouTube transcripts for `ytsummarise`.
 
 ## 7. Dev stack
 

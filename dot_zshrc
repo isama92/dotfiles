@@ -94,6 +94,9 @@ bindkey '^R' znt-history-widget   # fzf also binds Ctrl-R; reclaim it for ZNT
 for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do
   [ -r "$f" ] && . "$f"
 done
-
+# ZNT end
 
 . "$HOME/.local/share/../bin/env"
+
+# zoxide
+eval "$(zoxide init zsh)"

@@ -25,6 +25,8 @@ Some configs reference tools that chezmoi does **not** install for you. They mus
 
 - **[delta](https://dandavison.github.io/delta/installation.html)** — set as git's `pager` and `diffFilter` in `.gitconfig`. Without it, `git diff`, `git log`, and `git add -p` fail.
 - **[mpv](https://mpv.io/installation/)** — the `.config/mpv` config (scripts, keybindings) only takes effect once mpv itself is installed.
+- **[zoxide](https://github.com/ajeetdsouza/zoxide)** (Linux/zsh) — smarter `cd`; `.zshrc` initialises it on every shell start, so a missing binary errors on each new shell.
+- **[fabric](https://github.com/danielmiessler/fabric)** + **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** (Linux/zsh) — used by the `ytsummarise` function in `shell/functions.sh`; only that function breaks without them.
 
 Install commands live in the platform bootstrap files ([LINUX.md](LINUX.md), [WINDOWS.md](WINDOWS.md)).
 

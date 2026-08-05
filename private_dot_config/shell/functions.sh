@@ -42,3 +42,15 @@ ghmerge() {
   gh pr checks "$pr" --watch && gh pr merge "$pr" --squash --delete-branch
 }
 
+ytsummarise() {
+  local code="$1"
+  if [ -z "$code" ]; then
+    echo "usage: ytsummarise <youtube-video-id>" >&2
+    return 1
+  fi
+  fabric -y "https://www.youtube.com/watch?v=${code}" \
+    --yt-dlp-args="--sleep-requests 1" \
+    --pattern extract_ideas |
+    fabric --pattern create_summary
+}
+

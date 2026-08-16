@@ -8,7 +8,7 @@ config.initial_cols = 128
 config.initial_rows = 28
 config.font = wezterm.font('FiraCode Nerd Font')
 config.font_size = 11
-config.color_scheme = 'Solarized Light (Gogh)'
+config.color_scheme = 'Catppuccin Latte'
 
 -- Renderer: this build (20240203) defaults to WebGpu, which corrupts the glyph
 -- atlas against current NVIDIA drivers: backgrounds paint but text goes missing

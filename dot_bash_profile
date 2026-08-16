@@ -1,0 +1,12 @@
+# ~/.bash_profile: managed by chezmoi (Windows / Git Bash)
+#
+# Login shells read this file and NOT .bashrc, and WezTerm starts bash as a
+# login shell (`bash.exe --login -i` in .wezterm.lua). Without the chain below,
+# nothing in .bashrc loads in a WezTerm tab: no prompt, no aliases, none of the
+# shared ~/.config/shell layer.
+#
+# Git for Windows generates an equivalent file at install time. Tracking it here
+# means a new machine does not silently depend on that installer default.
+
+test -f ~/.profile && . ~/.profile
+test -f ~/.bashrc && . ~/.bashrc

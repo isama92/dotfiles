@@ -28,6 +28,7 @@ Some configs reference tools that chezmoi does **not** install for you. They mus
 - **[zoxide](https://github.com/ajeetdsouza/zoxide)** (Linux/zsh) — smarter `cd`; `.zshrc` initialises it on every shell start, so a missing binary errors on each new shell.
 - **[fabric](https://github.com/danielmiessler/fabric)** + **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** (Linux/zsh) — used by the `ytsummarise` function in `shell/functions.sh`; only that function breaks without them.
 - **[gnupg](https://gnupg.org/)** provides the commit and tag signing that `.gitconfig` enables. Until your key is imported, every `git commit` fails. See [GPG signing key](#gpg-signing-key).
+- **node + the `tree-sitter` CLI + a C compiler** are needed by the Neovim config: Mason installs Intelephense as a Node package, and nvim-treesitter compiles every parser locally. Without them Neovim opens but has no syntax highlighting and no PHP language server. Per-platform commands and the Windows `cl.exe` trap are in [VIM.md](VIM.md).
 
 Install commands live in the platform bootstrap files ([LINUX.md](LINUX.md), [WINDOWS.md](WINDOWS.md)).
 

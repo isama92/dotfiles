@@ -23,7 +23,7 @@ Install [Chocolatey](https://chocolatey.org/install) following the official inst
 Then, in a terminal **running as Administrator**:
 
 ```powershell
-choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firacode
+choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firacode nodejs-lts mingw
 ```
 
 - `chezmoi` — dotfiles manager.
@@ -35,6 +35,8 @@ choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firac
 - `git-delta` — git pager / diff viewer referenced by `.gitconfig` (provides the `delta` binary). Without it, `git diff` / `git log` fail. See [installation docs](https://dandavison.github.io/delta/installation.html).
 - `mpv` — media player; the `.config/mpv` config (scripts, keybindings) only applies once installed. See [installation docs](https://mpv.io/installation/).
 - `nerd-fonts-firacode` — FiraCode Nerd Font, set as the font in `.wezterm.lua`. Required for WezTerm to render correctly; without it the terminal falls back to a default font and icons/glyphs show as boxes.
+- `nodejs-lts` — Neovim needs `node` on `PATH` for Mason to install Intelephense (the PHP language server, a Node package). Without it Mason reports `intelephense: failed to install`. It also provides the `npm` used in step 7.
+- `mingw` — provides `gcc`. nvim-treesitter's `main` branch generates C and compiles it locally, so without a C compiler no parsers build and syntax highlighting silently never works. Note the npm `tree-sitter` CLI is built for the `windows-msvc` target and invokes `cl.exe`, failing with `Error: program not found` even once gcc is installed; `init.lua` sets `CC=gcc` on Windows to redirect it.
 
 ## 3. GPG signing key
 
@@ -80,17 +82,31 @@ Install [WezTerm](https://wezterm.org/) (Windows build).
 After `chezmoi apply`, run these once in Git Bash:
 
 ```bash
-# vim-plug for Neovim
-# Note: Windows nvim uses an 'nvim-data' suffix for the data dir (not 'nvim'),
-# even with XDG_DATA_HOME set. Verify inside nvim with :echo stdpath('data').
-curl -fLo ~/.local/share/nvim-data/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 # fzf shell integration (Ctrl-R history, Ctrl-T file picker, Alt-C dir jump)
 # choco's fzf package ships only the binary; the keybindings script is sourced
 # from this path by .bashrc.
 curl -fLo ~/.local/share/fzf/key-bindings.bash --create-dirs \
     https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash
+
+# Treesitter parser builder. The main branch of nvim-treesitter generates C and
+# compiles it with the tree-sitter CLI plus gcc (mingw, step 2). Without both,
+# no parsers build and syntax highlighting never works.
+npm install -g tree-sitter-cli
 ```
 
-Then open nvim and run `:PlugInstall`.
+### Then open Neovim
+
+**There is no `:PlugInstall` here.** This config is
+[kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) on
+[lazy.nvim](https://github.com/folke/lazy.nvim), which bootstraps itself: the
+first `nvim` launch clones lazy.nvim, installs every plugin, and lets Mason
+fetch the language servers. Running `:PlugInstall` gives
+`E492: Not an editor command`, because vim-plug is not used at all.
+
+Quit and reopen once it settles, then verify with `:Lazy`, `:Mason`, and
+`:checkhealth`.
+
+Note: Windows nvim uses an `nvim-data` suffix for its data dir (not `nvim`),
+even with `XDG_DATA_HOME` set. Check inside nvim with `:echo stdpath('data')`.
+
+See [VIM.md](VIM.md) for the keymaps and the full requirement list.

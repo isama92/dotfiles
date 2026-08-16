@@ -91,7 +91,17 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
+
+-- Windows: the npm-distributed tree-sitter CLI is built for the windows-msvc
+-- target, so `tree-sitter build` invokes cl.exe and dies with "program not
+-- found" even when mingw gcc is installed and on PATH. Every parser is compiled
+-- through that CLI, so without this no parser ever builds and there is no
+-- highlighting. Scoped to the nvim process rather than exported from the shell,
+-- so CC does not leak into node-gyp and friends, which do expect MSVC here.
+if vim.fn.has 'win32' == 1 and vim.fn.executable 'gcc' == 1 and vim.env.CC == nil then
+  vim.env.CC = 'gcc'
+end
 
 -- [[ Setting options ]]
 --  See `:help vim.o`

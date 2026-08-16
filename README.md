@@ -63,6 +63,39 @@ chezmoi update
 
 ## Machine-specific configuration
 
+### Values that must never be committed
+
+Git identity differs per machine (work email + work signing key on one, personal on
+another), so those two values live **outside** this repo. `chezmoi init` prompts for
+them once and writes them to the machine-local `~/.config/chezmoi/chezmoi.toml`:
+
+```toml
+[data.git]
+    email = "..."
+    signingkey = "..."
+```
+
+`dot_gitconfig.tmpl` then reads them as `{{ .git.email }}` and `{{ .git.signingkey }}`.
+The prompts are defined in `.chezmoi.toml.tmpl`.
+
+To change them later, edit `~/.config/chezmoi/chezmoi.toml` directly — `chezmoi init`
+alone will not re-ask, because `promptStringOnce` only prompts when the value is
+missing. To be asked again, delete the file first and re-run `chezmoi init`.
+
+Check what a machine currently resolves to:
+
+```bash
+chezmoi execute-template '{{ .git.email }} {{ .git.signingkey }}'
+```
+
+> **On an existing machine, run `chezmoi init` once after pulling this change.**
+> Until `[data.git]` exists, `chezmoi apply` fails with `map has no entry for key "git"`.
+
+Anything else that must stay local follows the same pattern as
+`~/.config/shell/local.sh`: untracked, sourced if present.
+
+### Templates
+
 Files with a `.tmpl` extension use Go templates for per-machine differences:
 
 ```

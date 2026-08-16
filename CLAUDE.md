@@ -35,6 +35,7 @@ The filename encodes the target path and its permissions. Get these wrong and th
 | `dot_claude/executable_statusline.sh` | `~/.claude/statusline.sh`, mode +x |
 | `dot_bashrc.tmpl` | `~/.bashrc`, rendered as a Go template |
 | `Dev/scripts/executable_migrate_tinkerwell.sh` | `~/Dev/scripts/migrate_tinkerwell.sh` |
+| `private_dot_config/nvim/create_lazy-lock.json` | `~/.config/nvim/lazy-lock.json`, written only if absent, never overwritten |
 
 Prefer `chezmoi add` over hand-naming a new file — it derives the prefixes for you.
 
@@ -87,7 +88,7 @@ Config is a single ~1000-line `private_dot_config/nvim/init.lua` based on kickst
 - LSP servers and Mason tool list live in the `servers` table around `init.lua:616` (intelephense, lua_ls, stylua). PHP/Laravel is the target workload.
 - Optional kickstart modules live in `lua/kickstart/plugins/`; they only take effect when `require`d at the bottom of `init.lua` (~line 980). `debug`, `lint`, `indent_line` are present but commented out.
 - Personal plugins go in `lua/custom/plugins/init.lua` (currently Harpoon) — keep them out of `lua/kickstart/` so upstream diffs stay clean.
-- `lazy-lock.json` is tracked for reproducible installs. After changing plugins: `nvim +"Lazy sync" +qa && chezmoi add ~/.config/nvim/lazy-lock.json`.
+- `lazy-lock.json` is tracked as `create_lazy-lock.json`: chezmoi writes it only when it does not already exist, so a new machine bootstraps on the pinned commits and thereafter lazy.nvim owns the file. It never appears in `chezmoi diff` and `apply` never reverts it. Refresh the committed pin deliberately with `chezmoi add --create --force ~/.config/nvim/lazy-lock.json`; dropping `--create` reintroduces the overwrite-on-apply fight between chezmoi and lazy.nvim.
 
 `VIM.md` documents the keymaps and the external tool requirements (node, tree-sitter CLI + C compiler, ripgrep, fd); update it alongside keymap or plugin changes.
 

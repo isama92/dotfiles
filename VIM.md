@@ -106,14 +106,28 @@ Useful maintenance commands inside Neovim:
 
 ## Updating plugins
 
-Plugin versions are pinned in `lazy-lock.json`, which is tracked here for
-reproducible installs across machines. After updating plugins, re-add the
-lockfile so the new versions are committed:
-
 ```bash
 nvim +"Lazy sync" +qa
-chezmoi add ~/.config/nvim/lazy-lock.json
 ```
+
+Plugin versions are pinned in `lazy-lock.json`, which lazy.nvim rewrites itself
+on every install or update. The source is named `create_lazy-lock.json`, so
+chezmoi writes it **only on a machine where it does not yet exist** and never
+touches it afterwards. A fresh machine therefore bootstraps on a known-good set
+of commits, and from then on that machine's lazy.nvim owns the file: no
+`chezmoi apply` can revert your plugin versions, and the lockfile never appears
+in `chezmoi diff`.
+
+The trade-off is that the committed pin does not refresh by itself. When you
+have a set of versions worth handing to the next machine, capture it
+deliberately:
+
+```bash
+chezmoi add --create --force ~/.config/nvim/lazy-lock.json
+```
+
+Without `--create` the file goes back to being overwritten on every apply, which
+is the behaviour this naming exists to avoid.
 
 ## Where things live
 

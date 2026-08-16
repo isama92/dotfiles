@@ -27,6 +27,7 @@ Some configs reference tools that chezmoi does **not** install for you. They mus
 - **[mpv](https://mpv.io/installation/)** — the `.config/mpv` config (scripts, keybindings) only takes effect once mpv itself is installed.
 - **[zoxide](https://github.com/ajeetdsouza/zoxide)** (Linux/zsh) — smarter `cd`; `.zshrc` initialises it on every shell start, so a missing binary errors on each new shell.
 - **[fabric](https://github.com/danielmiessler/fabric)** + **[yt-dlp](https://github.com/yt-dlp/yt-dlp)** (Linux/zsh) — used by the `ytsummarise` function in `shell/functions.sh`; only that function breaks without them.
+- **[gnupg](https://gnupg.org/)** provides the commit and tag signing that `.gitconfig` enables. Until your key is imported, every `git commit` fails. See [GPG signing key](#gpg-signing-key).
 
 Install commands live in the platform bootstrap files ([LINUX.md](LINUX.md), [WINDOWS.md](WINDOWS.md)).
 
@@ -111,4 +112,57 @@ To convert an existing file to a template:
 ```bash
 chezmoi cd
 mv dot_zshrc dot_zshrc.tmpl
+```
+
+## GPG signing key
+
+`.gitconfig` sets `commit.gpgsign = true` and `tag.gpgsign = true`, so **every commit
+and tag fails until the key is present on the machine**. chezmoi does not carry the
+key: it is secret material and never enters this repo. Its fingerprint is one of the
+two values `chezmoi init` prompts for (see "Machine-specific configuration" above).
+
+### Getting gpg
+
+| Platform | gpg | passphrase prompt |
+|----------|-----|-------------------|
+| Windows | bundled with Git for Windows at `C:\Program Files\Git\usr\bin\gpg.exe` | `pinentry-w32`, also bundled |
+| Ubuntu/Debian | `sudo apt install gnupg` (usually already present) | `sudo apt install pinentry-curses` or `pinentry-gtk2` |
+| macOS | `brew install gnupg` | `brew install pinentry-mac`, then set `pinentry-program` in `~/.gnupg/gpg-agent.conf` |
+
+### Importing the key
+
+Get the armoured secret key and the ownertrust file out of 1Password. Never email,
+Slack, or cloud-drive them: anyone holding the secret key plus the passphrase can
+sign as you.
+
+```bash
+gpg --import gpg-private.asc
+gpg --import-ownertrust gpg-ownertrust.txt   # keeps the key ultimately trusted
+gpg --list-secret-keys --keyid-format=long   # should now list the key
+
+# check signing works; pinentry asks for the passphrase
+echo test | gpg --clearsign
+```
+
+Delete both files once the import is confirmed:
+
+```bash
+shred -u gpg-private.asc gpg-ownertrust.txt 2>/dev/null || rm -f gpg-private.asc gpg-ownertrust.txt
+```
+
+Keep the fingerprint to hand: `chezmoi init` asks for it.
+
+### Optional: stop pinentry asking on every commit
+
+Caches the passphrase for 1 h, 8 h maximum:
+
+```bash
+printf 'default-cache-ttl 3600\nmax-cache-ttl 28800\n' >> ~/.gnupg/gpg-agent.conf
+gpg-connect-agent reloadagent /bye
+```
+
+### Verifying
+
+```bash
+git log -1 --format='%G? %GS %GK'    # G = good signature, plus signer and key id
 ```

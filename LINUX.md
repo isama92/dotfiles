@@ -108,6 +108,7 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 - [zoxide](https://github.com/ajeetdsouza/zoxide) — frecency-based `cd` (`z`, `zi`), initialised by `.zshrc` on every shell start.
 - [fabric](https://github.com/danielmiessler/fabric) — LLM prompt-pattern CLI used by the `ytsummarise` function; needs a one-off `fabric --setup` for API keys and patterns.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) — how fabric pulls YouTube transcripts for `ytsummarise`.
+- [gnupg](https://gnupg.org/) provides the commit and tag signing enabled in `.gitconfig`; `git commit` fails until your key is imported. Usually already installed, but passphrase prompts need a pinentry (`sudo apt install pinentry-curses` or `pinentry-gtk2`). Procedure: [GPG signing key](README.md#gpg-signing-key).
 
 ## 7. Dev stack
 

@@ -38,37 +38,18 @@ choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firac
 
 ## 3. GPG signing key
 
-`.gitconfig` sets `commit.gpgsign = true` and `tag.gpgsign = true`, so **every commit
-fails until the key is present**. Git for Windows already bundles GnuPG at
-`C:\Program Files\Git\usr\bin\gpg.exe` (with `pinentry-w32` for passphrase prompts),
-so nothing extra needs installing — the key just has to be imported.
+`.gitconfig` signs every commit and tag, so commits fail until your key is imported.
+The procedure is the same on every platform and lives in
+[README.md](README.md#gpg-signing-key). Two Windows specifics:
 
-Get the armoured secret key and the ownertrust file out of 1Password (never email,
-Slack, or a cloud drive), then in Git Bash:
+- GnuPG is already bundled with Git for Windows at
+  `C:\Program Files\Git\usr\bin\gpg.exe`, with `pinentry-w32` for passphrase prompts.
+  Nothing extra needs installing.
+- `gpg` is only on `PATH` inside Git Bash, so `dot_gitconfig.tmpl` sets `gpg.program`
+  explicitly on Windows. That is what makes signing work from PowerShell, editors,
+  and GUI clients as well. It is handled by the template; nothing to do by hand.
 
-```bash
-gpg --import gpg-private.asc
-gpg --import-ownertrust gpg-ownertrust.txt   # keeps the key ultimately trusted
-gpg --list-secret-keys --keyid-format=long   # should now list the key
-
-# check signing works — pinentry pops up asking for the passphrase
-echo test | gpg --clearsign
-```
-
-Delete both files once the import is confirmed:
-
-```bash
-shred -u gpg-private.asc gpg-ownertrust.txt 2>/dev/null || rm -f gpg-private.asc gpg-ownertrust.txt
-```
-
-Optional — stop pinentry asking on every single commit (1 h cache, 8 h max):
-
-```bash
-printf 'default-cache-ttl 3600\nmax-cache-ttl 28800\n' >> ~/.gnupg/gpg-agent.conf
-gpg-connect-agent reloadagent /bye
-```
-
-Keep the fingerprint to hand: step 4 asks for it.
+Do the import now, because step 4 asks for the key's fingerprint.
 
 ## 4. Initialise this repo
 

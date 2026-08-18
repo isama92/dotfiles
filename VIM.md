@@ -52,9 +52,39 @@ degrade or break:
 - **A Nerd Font** (optional) - for file-type icons. Install one in the terminal, then set `vim.g.have_nerd_font = true` near the top of `init.lua`. Icons are off by default.
 - **Intelephense licence** (optional) - the free tier is wired up. To unlock rename, find-references, auto-import `use`, and generate-constructor, buy a key at https://intelephense.com. Two ways to apply it:
   - Set `licenceKey` in the `servers.intelephense.init_options` block of `init.lua`. Simple, but do not commit a real key to this repo if it is shared.
-  - Repo-safe: leave `licenceKey = nil` and put the bare key in `~/intelephense/licence.txt` (Intelephense reads it on startup). This keeps the key out of the dotfiles entirely.
+  - Repo-safe: leave `licenceKey = nil` and put the bare key in `~/intelephense/licence.txt` (Intelephense reads it on startup). This keeps the key out of the dotfiles entirely. On Windows `~` resolves to `%USERPROFILE%`, so that path is `C:\Users\<you>\intelephense\licence.txt`. Save it as plain UTF-8 with **no BOM**: PowerShell's `>` and `Out-File` add one by default, and Intelephense then reads a corrupted first character and silently stays on the free tier.
 
   Either way, restart Neovim or run `:LspRestart` in a PHP buffer to apply. To confirm premium is active, `grn` (rename) and `grr` (find references) start working.
+
+### Installing those on Windows
+
+Same requirements, different packages, plus one trap that costs an afternoon.
+
+```powershell
+choco install nodejs-lts mingw    # Administrator
+```
+
+```bash
+npm install -g tree-sitter-cli    # new shell, so npm is on PATH
+```
+
+npm now blocks package install scripts by default, so `tree-sitter-cli` prints an
+`allow-scripts` warning. Ignore it: the binary ships in the tarball and
+`tree-sitter --version` works without running the script. Do not enable
+`allow-scripts` globally to silence it.
+
+The trap: the npm `tree-sitter` CLI is built for the `windows-msvc` target, so
+`tree-sitter build` invokes `cl.exe` and fails with `Error: program not found`
+**even when mingw gcc is installed and on `PATH`**. Every parser is compiled
+through that CLI, so nothing builds, and it surfaces as
+`error: Error during "tree-sitter build"` on each buffer you open. `init.lua`
+sets `CC=gcc` on Windows to redirect it, so there is nothing to do by hand, but
+do not delete that guard.
+
+Compiled parsers land in `stdpath('data')/site/parser`, which on Windows is
+`~/.local/share/nvim-data/site/parser` (note the `nvim-data` suffix, not `nvim`).
+An empty directory there means the toolchain is not working;
+`:checkhealth nvim-treesitter` lists what is actually installed.
 
 ## First-time setup on a new machine
 
@@ -76,14 +106,28 @@ Useful maintenance commands inside Neovim:
 
 ## Updating plugins
 
-Plugin versions are pinned in `lazy-lock.json`, which is tracked here for
-reproducible installs across machines. After updating plugins, re-add the
-lockfile so the new versions are committed:
-
 ```bash
 nvim +"Lazy sync" +qa
-chezmoi add ~/.config/nvim/lazy-lock.json
 ```
+
+Plugin versions are pinned in `lazy-lock.json`, which lazy.nvim rewrites itself
+on every install or update. The source is named `create_lazy-lock.json`, so
+chezmoi writes it **only on a machine where it does not yet exist** and never
+touches it afterwards. A fresh machine therefore bootstraps on a known-good set
+of commits, and from then on that machine's lazy.nvim owns the file: no
+`chezmoi apply` can revert your plugin versions, and the lockfile never appears
+in `chezmoi diff`.
+
+The trade-off is that the committed pin does not refresh by itself. When you
+have a set of versions worth handing to the next machine, capture it
+deliberately:
+
+```bash
+chezmoi add --create --force ~/.config/nvim/lazy-lock.json
+```
+
+Without `--create` the file goes back to being overwritten on every apply, which
+is the behaviour this naming exists to avoid.
 
 ## Where things live
 

@@ -1,0 +1,7 @@
+# readline configuration (bash and any other readline program)
+
+# Silence the terminal bell. Readline rings it on every rejected keystroke, most
+# noticeably pressing Down at the end of history, and terminals that visualise
+# BEL turn that into a screen flash. Killing it at the source beats muting it
+# per terminal.
+set bell-style none

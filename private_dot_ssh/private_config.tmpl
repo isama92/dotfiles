@@ -1,5 +1,16 @@
+# 1Password serves the SSH agent, but the socket differs per OS:
+#   linux    a unix socket at ~/.1password/agent.sock
+#   darwin   a unix socket inside the app's group container
+#   windows  the named pipe \\.\pipe\openssh-ssh-agent, already OpenSSH's
+#            default, and IdentityAgent cannot express it, so leave it unset.
+#            Pointing it at the unix socket path kills agent auth outright
+#            ("ssh_get_authentication_socket: No such file or directory").
 Host *
+{{- if eq .chezmoi.os "darwin" }}
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{- else if eq .chezmoi.os "linux" }}
 	IdentityAgent ~/.1password/agent.sock
+{{- end }}
 
 Host dhprod
     Hostname 136.144.250.20

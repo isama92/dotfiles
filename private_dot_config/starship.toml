@@ -1,6 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Off: a leftover ~/.aws/credentials makes starship print an AWS region on
+# machines that have nothing to do with AWS.
 [aws]
+disabled = true
 symbol = " "
 
 [azure]

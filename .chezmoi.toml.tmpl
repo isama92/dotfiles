@@ -1,0 +1,10 @@
+{{/* Machine-local values. Prompted once by `chezmoi init` and written to
+     ~/.config/chezmoi/chezmoi.toml, which is NOT part of this repo — so the
+     work identity on one PC and the personal identity on another never get
+     committed. Re-run `chezmoi init` to change them, or edit that file. */}}
+{{- $email := promptStringOnce . "git.email" "Git author email" -}}
+{{- $signingkey := promptStringOnce . "git.signingkey" "Git GPG signing key (long ID or full fingerprint)" -}}
+
+[data.git]
+    email = {{ $email | quote }}
+    signingkey = {{ $signingkey | quote }}

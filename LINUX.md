@@ -139,7 +139,8 @@ binary is missing.
 chezmoi carries both pieces:
 
 - `.local/share/applications/dev.zed.Zed.desktop`: Zed's own entry, patched to add
-  `inode/directory` so folders get an "Open With Zed" item.
+  `inode/directory` (folders get an "Open With Zed" item) and `--new` (opens its own window
+  instead of joining whatever project is already open).
 - `.chezmoiscripts/run_onchange_after_zed-mime-defaults.sh`: claims the text and code MIME types
   for Zed, and pins `inode/directory` back to Nautilus so folders still browse rather than open
   in the editor.

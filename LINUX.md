@@ -126,7 +126,35 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 - [Flameshot](https://flameshot.org/) — the reason for `QT_QPA_PLATFORM=wayland` in `.zshrc`.
 - [mpv](https://mpv.io/installation/) — media player; the `.config/mpv` config (scripts, keybindings) only applies once installed. `sudo apt install mpv`.
 
-## 10. Expected directories
+## 10. Zed (desktop editor)
+
+GUI editor for Nautilus double-click and "Open With". The terminal stays on nvim, the two live in
+separate registries (`$EDITOR` vs XDG MIME defaults).
+
+Install from [zed.dev](https://zed.dev/download) **before** applying: `.zshrc` evals
+`zed --completions zsh` on every shell start, and the MIME script below skips itself when the
+binary is missing.
+
+chezmoi carries both pieces:
+
+- `.local/share/applications/dev.zed.Zed.desktop`: Zed's own entry, patched to add
+  `inode/directory` so folders get an "Open With Zed" item.
+- `.chezmoiscripts/run_onchange_after_zed-mime-defaults.sh`: claims the text and code MIME types
+  for Zed, and pins `inode/directory` back to Nautilus so folders still browse rather than open
+  in the editor.
+
+```bash
+# GNOME owns mimeapps.list, so back it up first
+cp ~/.config/mimeapps.list ~/.config/mimeapps.list.bak-pre-zed
+
+chezmoi apply
+nautilus -q          # reload associations
+```
+
+Zed's self-update rewrites its desktop entry and drops the patch, so re-run `chezmoi apply` after
+a Zed upgrade. Edit the type list in the script and the next apply re-runs it.
+
+## 11. Expected directories
 
 - `~/.local/bin`
 - `~/.local/share/php/bin`

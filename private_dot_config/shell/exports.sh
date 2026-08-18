@@ -14,11 +14,12 @@ path_prepend "$HOME/.opencode/bin"
 export PATH
 
 # editor #
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+if [ -x "$HOME/.local/share/bob/nvim-bin/nvim" ]; then
+  export EDITOR="$HOME/.local/share/bob/nvim-bin/nvim"
 else
   export EDITOR='nvim'
 fi
+export VISUAL="$EDITOR"
 
 # nvm #
 export NVM_DIR="$HOME/.local/share/nvm"

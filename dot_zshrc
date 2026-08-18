@@ -100,3 +100,7 @@ done
 
 # zoxide
 eval "$(zoxide init zsh)"
+
+# zed
+eval "$(zed --completions zsh)"
+

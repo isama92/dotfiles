@@ -11,6 +11,7 @@ README.md
 .zshrc
 .p10k.zsh
 .config/ghostty
+.chezmoiscripts/zed-mime-defaults.sh
 {{- end }}
 {{- if ne .chezmoi.os "windows" }}
 .bash_profile

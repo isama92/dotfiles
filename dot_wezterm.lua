@@ -15,7 +15,12 @@ config.color_scheme = 'Catppuccin Latte'
 -- or smears, worst after a full repaint such as `chezmoi cd` spawning a subshell.
 -- OpenGL is the stable path. Try 'Software' if artefacts survive this, and drop
 -- the line entirely once WezTerm is updated past the Feb 2024 release.
-config.front_end = 'OpenGL'
+--config.front_end = 'OpenGL'
+config.front_end = 'WebGpu'
+
+config.prefer_egl = false
+
+config.window_decorations = 'RESIZE'
 
 
 -- bash configuration

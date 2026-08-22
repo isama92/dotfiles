@@ -12,6 +12,7 @@ README.md
 .p10k.zsh
 .config/ghostty
 .chezmoiscripts/zed-mime-defaults.sh
+Dev/scripts/migrate_tinkerwell.sh
 {{- end }}
 {{- if ne .chezmoi.os "windows" }}
 .bash_profile

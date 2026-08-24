@@ -7,7 +7,7 @@ path_prepend() {
     *) [ -d "$1" ] && PATH="$1:$PATH" ;;
   esac
 }
-path_prepend "$HOME/.local/share/php/bin"
+path_prepend "$HOME/.local/share/lerd/bin"
 path_prepend "$HOME/.local/bin"
 path_prepend "$HOME/.local/share/bob/nvim-bin"
 path_prepend "$HOME/.opencode/bin"
@@ -29,7 +29,6 @@ export NVM_DIR="$HOME/.local/share/nvm"
 # others #
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export PHP_INI_SCAN_DIR="$HOME/.local/share/php/bin:$PHP_INI_SCAN_DIR"
 export QT_QPA_PLATFORM="wayland;xcb"
 
 # less: preview archives/binaries via lesspipe (no-op where absent, e.g. git bash) #

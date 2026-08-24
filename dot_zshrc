@@ -104,3 +104,6 @@ eval "$(zoxide init zsh)"
 # zed
 eval "$(zed --completions zsh)"
 
+# Lerd completions
+fpath=(/home/isama92/.local/share/zsh/site-functions $fpath)
+autoload -Uz compinit && compinit

@@ -112,7 +112,7 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 
 ## 7. Dev stack
 
-- **PHP** — `/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)"` (change install path to `~/.local/share/php`).
+- **PHP** — via Lerd, https://lerd.sh/.
 - **Docker** — required by the `dep` / `dep_build` functions.
 - **Jupyter** — venv at `~/Dev/jupyter-notebook/venv`, used by the `jp` alias.
 - **Laravel Sail** — project-local, no global install needed.
@@ -158,6 +158,6 @@ a Zed upgrade. Edit the type list in the script and the next apply re-runs it.
 
 ## 11. Expected directories
 
-- `~/.local/bin`
-- `~/.local/share/php/bin`
-- `~/Dev/jupyter-notebook`
+- `~/.local/bin/`
+- `~/.local/share/lerd/`
+- `~/Dev/jupyter-notebook/`

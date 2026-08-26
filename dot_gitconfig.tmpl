@@ -28,6 +28,12 @@
 [core]
     pager = delta
 	excludesfile = ~/.gitignore
+{{- if eq .chezmoi.os "windows" }}
+    # Git for Windows bundles an MSYS2 ssh that cannot reach the named pipe
+    # \\.\pipe\openssh-ssh-agent, where 1Password serves its agent. Point git
+    # at the native OpenSSH client instead; see ~/.ssh/config for the same story.
+	sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+{{- end }}
 [safe]
 	directory = /var/www/html
 {{- if eq .chezmoi.os "windows" }}

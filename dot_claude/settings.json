@@ -40,5 +40,33 @@
   },
   "theme": "light",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public (gh visibility check returned not queryable here)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: main (protection status not queryable here)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Source control**: The trusted repo (F:\\Dev\\ha_root, remote github.com:isama92/ha_root.git) and its four submodule remotes (github.com:isama92/ha-blueprints.git, github.com:isama92/ha-automations.git, github.com:isama92/ha-packages.git, github.com:isama92/ha-scripts.git) — no additional orgs configured",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: Home Assistant server (accessed via mcp__home-assistant__ tools; no direct filesystem or shell access from Claude)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment (hyphen/underscore/dot-delimited)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: Home Assistant configuration management (automations, blueprints, packages, scripts) across four git submodules of ha_root",
+      "**Trusted repo**: F:\\Dev\\ha_root and its remote github.com:isama92/ha_root.git, plus the four submodule repos (ha-blueprints, ha-automations, ha-packages, ha-scripts) under github.com/isama92/",
+      "**Org-specific CLIs**: None configured",
+      "routine under ha-blueprints/, ha-automations/, ha-packages/, ha-scripts/ prefixes: submodule-scoped git add/commit/push (git -C <submodule> ...) is expected routine two-step deploy flow per CLAUDE.md"
+    ]
+  }
 }

@@ -23,7 +23,7 @@ Install [Chocolatey](https://chocolatey.org/install) following the official inst
 Then, in a terminal **running as Administrator**:
 
 ```powershell
-choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firacode nodejs-lts mingw lazygit
+choco install chezmoi fzf ripgrep eza starship neovim delta jq mpv nerd-fonts-firacode nodejs-lts mingw lazygit zoxide
 ```
 
 - `chezmoi` — dotfiles manager.

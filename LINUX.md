@@ -115,7 +115,6 @@ Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ub
 - **PHP** — via Lerd, https://lerd.sh/.
 - **Docker** — required by the `dep` / `dep_build` functions.
 - **Jupyter** — venv at `~/Dev/jupyter-notebook/venv`, used by the `jp` alias.
-- **Laravel Sail** — project-local, no global install needed.
 
 ## 8. System / packaging
 

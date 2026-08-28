@@ -68,7 +68,7 @@ done
 {{ if eq .chezmoi.os "windows" }}
 # --- Windows replacements for the shared aliases ---
 alias ls="eza"
-alias l="ls --icons=always --colour=always --colour-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
+alias l="ls --icons=always --color=always --color-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
 alias vim="nvim"
 # choco upgrade needs an elevated shell; run git bash as Administrator
 alias update="choco upgrade all -y && uv tool upgrade ha-mcp && claude update"

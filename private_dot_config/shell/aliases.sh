@@ -4,7 +4,7 @@
 command -v eza >/dev/null 2>&1 || printf '%s\n' "warning: eza not found, ls aliases will break. Install it: https://github.com/eza-community/eza#installation" >&2
 
 alias ls="eza"
-alias l="ls --icons=always --colour=always --colour-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
+alias l="ls --icons=always --color=always --color-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
 alias vim="nvim"
 alias update="sudo apt update -qq && sudo apt dist-upgrade && sudo apt autoremove -y && sudo apt autoclean && sudo snap refresh && flatpak update && claude update && omz update && curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh | sudo bash"
 alias jp="cd ~/Dev/jupyter-notebook;source ./venv/bin/activate;jupyter lab"

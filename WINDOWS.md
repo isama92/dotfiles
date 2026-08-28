@@ -38,6 +38,8 @@ choco install chezmoi fzf ripgrep eza starship neovim delta mpv nerd-fonts-firac
 - `nodejs-lts` — Neovim needs `node` on `PATH` for Mason to install Intelephense (the PHP language server, a Node package). Without it Mason reports `intelephense: failed to install`. It also provides the `npm` used in step 7.
 - `mingw` — provides `gcc`. nvim-treesitter's `main` branch generates C and compiles it locally, so without a C compiler no parsers build and syntax highlighting silently never works. Note the npm `tree-sitter` CLI is built for the `windows-msvc` target and invokes `cl.exe`, failing with `Error: program not found` even once gcc is installed; `init.lua` sets `CC=gcc` on Windows to redirect it.
 
+The `.bashrc` `update` alias chains the upgrades together: `choco upgrade all -y && uv tool upgrade ha-mcp && claude update`. `choco upgrade` needs an elevated shell, so run Git Bash as Administrator when you use it.
+
 ## 3. GPG signing key
 
 `.gitconfig` signs every commit and tag, so commits fail until your key is imported.
@@ -72,6 +74,8 @@ configuration" in [README.md](README.md).
 ## 5. Python
 
 Install Python via the [Python install manager](https://www.python.org/downloads/) from python.org (the page now ships the official Windows install manager).
+
+[uv](https://docs.astral.sh/uv/) manages the Python CLI tools installed into `~/.local/bin`, which `exports.sh` puts on `PATH`. The `update` alias calls `uv tool upgrade ha-mcp`, so without `uv` that alias stops at its second step.
 
 ## 6. WezTerm
 

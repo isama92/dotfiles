@@ -97,7 +97,7 @@ See `VIM.md` for the full setup and shortcuts.
 
 ## 5. Terminal (Ghostty)
 
-Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ubuntu) script — also automated by the `update` alias in `.zshrc`.
+Install via the [mkasberg/ghostty-ubuntu](https://github.com/mkasberg/ghostty-ubuntu) script, also automated by the `update` alias in `.config/shell/aliases.sh`.
 
 ## 6. CLI tools
 

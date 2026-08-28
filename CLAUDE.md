@@ -39,7 +39,7 @@ The filename encodes the target path and its permissions. Get these wrong and th
 
 Prefer `chezmoi add` over hand-naming a new file — it derives the prefixes for you.
 
-Note: `dot_bashrc.tmpl` carries the `.tmpl` extension but currently contains **no** template directives. Keep the extension (it is where machine-specific branching would go), but do not assume `.tmpl` implies templating is in use.
+Note: `dot_bashrc.tmpl` uses template directives to gate the Windows-only parts (which shared files it sources, and the Windows alias block). Keep the `.tmpl` extension, and render it for the current machine with `chezmoi execute-template < dot_bashrc.tmpl` before applying.
 
 ## Machine-local data (never committed)
 
@@ -64,11 +64,13 @@ Consequences to keep in mind:
 
 ## Shell configuration architecture
 
-Both shells converge on one shared layer. `dot_zshrc` (Linux) and `dot_bashrc.tmpl` (Windows Git Bash) each end with the same loop:
+Both shells converge on one shared layer, but they do not both take all of it. `dot_zshrc` (Linux) ends with:
 
 ```bash
 for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do [ -r "$f" ] && . "$f"; done
 ```
+
+`dot_bashrc.tmpl` runs that same loop on Linux, but on Windows a template guard narrows it to `{exports,local}.sh`.
 
 So `private_dot_config/shell/` is where cross-shell changes belong:
 
@@ -77,7 +79,7 @@ So `private_dot_config/shell/` is where cross-shell changes belong:
 - `functions.sh` — `dep`/`dep_build` (dockerised Deployer), `wgup`, `ghmerge`, `ytsummarise`.
 - `local.sh` — **not tracked**; the machine-local escape hatch for anything that must not be committed.
 
-Gotcha: `aliases.sh` is loaded on both platforms but contains Linux-only entries (`update` calls apt/snap/flatpak, `feishin`, `mic`, `wgdown`). `dot_bashrc.tmpl` re-defines a few git aliases after the shared load because zsh gets them from the oh-my-zsh `git` plugin and bash does not. Anything genuinely platform-specific either goes in the platform rc file or needs template guards.
+Gotcha: `aliases.sh` and `functions.sh` are Linux-only in practice (`update` drives apt/snap/flatpak, plus `feishin`, `mic`, `wgdown`, `wgup`, `dep`), so Git Bash does not source them at all. `dot_bashrc.tmpl` instead redefines the portable ones (`ls`, `l`, `vim`, and a choco/uv-based `update`) alongside the git aliases zsh gets from the oh-my-zsh `git` plugin and bash does not. `exports.sh` *is* still sourced on Windows, because `XDG_CONFIG_HOME` / `XDG_DATA_HOME` and `~/.local/bin` on `PATH` are needed there; its Linux-only entries are self-gating (`path_prepend` tests `[ -d ]`, `QT_QPA_PLATFORM` sits behind an `$OSTYPE` case). Anything genuinely platform-specific either goes in the platform rc file or needs a template guard.
 
 Prompt differs by platform on purpose: Powerlevel10k (`dot_p10k.zsh`, 91 KB of generated config — regenerate with `p10k configure`, do not hand-edit) on Linux, starship on Windows.
 

@@ -55,10 +55,24 @@ fi
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
 
 # --- Shared shell config (env, aliases, functions) ---
+{{- if eq .chezmoi.os "windows" }}
+# git bash takes only the env layer and the local escape hatch: aliases.sh and
+# functions.sh are Linux-only (apt, snap, flatpak, wg-quick, pw-loopback,
+# dockerised dep). The portable ones are redefined at the bottom of this file.
+for f in ~/.config/shell/{exports,local}.sh; do
+{{- else }}
 for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do
+{{- end }}
   [ -r "$f" ] && . "$f"
 done
-
+{{ if eq .chezmoi.os "windows" }}
+# --- Windows replacements for the shared aliases ---
+alias ls="eza"
+alias l="ls --icons=always --colour=always --colour-scale=size --classify=always --show-symlinks --group --header --time-style=long-iso"
+alias vim="nvim"
+# choco upgrade needs an elevated shell; run git bash as Administrator
+alias update="choco upgrade all -y && uv tool upgrade ha-mcp && claude update"
+{{ end }}
 # --- bash-only alias overrides ---
 alias gaa="git add -A"
 alias gst="git status"

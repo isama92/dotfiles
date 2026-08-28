@@ -29,7 +29,10 @@ export NVM_DIR="$HOME/.local/share/nvm"
 # others #
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export QT_QPA_PLATFORM="wayland;xcb"
+# Qt platform hint: Wayland with an X11 fallback, meaningless off Linux
+case "$OSTYPE" in
+  linux*) export QT_QPA_PLATFORM="wayland;xcb" ;;
+esac
 
 # less: preview archives/binaries via lesspipe (no-op where absent, e.g. git bash) #
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

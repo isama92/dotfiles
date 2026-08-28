@@ -75,7 +75,7 @@ for f in ~/.config/shell/{exports,aliases,functions,local}.sh; do [ -r "$f" ] &&
 So `private_dot_config/shell/` is where cross-shell changes belong:
 
 - `exports.sh` — `PATH` (via the idempotent `path_prepend` helper), `EDITOR`, nvm, and the `XDG_CONFIG_HOME` / `XDG_DATA_HOME` exports that let Windows nvim read the same config paths as Linux.
-- `aliases.sh` — `ls`→eza, `vim`→nvim, Laravel `sail`/`a`, the big `update` chain.
+- `aliases.sh` — `ls`→eza, `vim`→nvim, Laravel `a` (php artisan) and `pint`, the big `update` chain.
 - `functions.sh` — `dep`/`dep_build` (dockerised Deployer), `wgup`, `ghmerge`, `ytsummarise`.
 - `local.sh` — **not tracked**; the machine-local escape hatch for anything that must not be committed.
 

@@ -82,3 +82,7 @@ alias gss="git status --short"
 alias gd="git diff"
 
 . "$HOME/.local/share/../bin/env"
+
+# --- zoxide: frecency-based cd (z, zi) ---
+# Must come last: its hook appends to PROMPT_COMMAND, which starship also sets.
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"

@@ -104,7 +104,7 @@ These three files are coupled: `mpv.conf` sets `osc=no` and `title-bar=no` *beca
 
 ## External tool contract
 
-Several configs hard-depend on binaries chezmoi does not install — a missing one breaks the shell or git, not just one feature: `delta` (git `pager` and `diffFilter`), `eza` (`ls` aliases), `zoxide` (evaluated on every zsh start), `fzf`, `starship`, `jq` (the Claude statusline parses its JSON with it). When a change introduces a new hard dependency, document it in `README.md` **and** the relevant platform file (`LINUX.md` / `WINDOWS.md`), which carry the install commands.
+Several configs hard-depend on binaries chezmoi does not install — a missing one breaks the shell or git, not just one feature: `delta` (git `pager` and `diffFilter`), `eza` (`ls` aliases), `fzf`, `starship`, `jq` (the Claude statusline parses its JSON with it). `zoxide` is the exception: both shells guard its `eval` behind `command -v`, so a missing binary costs you `z` / `zi` and nothing else. When a change introduces a new hard dependency, document it in `README.md` **and** the relevant platform file (`LINUX.md` / `WINDOWS.md`), which carry the install commands.
 
 ## Known rough edges
 

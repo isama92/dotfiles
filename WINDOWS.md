@@ -33,10 +33,13 @@ choco install chezmoi fzf ripgrep eza starship neovim delta jq mpv nerd-fonts-fi
 - `starship` — cross-shell prompt (loaded from `.bashrc`).
 - `neovim` — Neovim. The `.bashrc` aliases `vim` to `nvim` and exports `XDG_CONFIG_HOME=~/.config` / `XDG_DATA_HOME=~/.local/share`, so nvim reads its config and plugins from the same paths as on Linux.
 - `git-delta` — git pager / diff viewer referenced by `.gitconfig` (provides the `delta` binary). Without it, `git diff` / `git log` fail. See [installation docs](https://dandavison.github.io/delta/installation.html).
+- `jq` — JSON processor. `~/.claude/statusline.sh` pipes Claude Code's JSON through it to build the status line; without it the status line renders empty.
 - `mpv` — media player; the `.config/mpv` config (scripts, keybindings) only applies once installed. See [installation docs](https://mpv.io/installation/).
 - `nerd-fonts-firacode` — FiraCode Nerd Font, set as the font in `.wezterm.lua`. Required for WezTerm to render correctly; without it the terminal falls back to a default font and icons/glyphs show as boxes.
 - `nodejs-lts` — Neovim needs `node` on `PATH` for Mason to install Intelephense (the PHP language server, a Node package). Without it Mason reports `intelephense: failed to install`. It also provides the `npm` used in step 7.
 - `mingw` — provides `gcc`. nvim-treesitter's `main` branch generates C and compiles it locally, so without a C compiler no parsers build and syntax highlighting silently never works. Note the npm `tree-sitter` CLI is built for the `windows-msvc` target and invokes `cl.exe`, failing with `Error: program not found` even once gcc is installed; `init.lua` sets `CC=gcc` on Windows to redirect it.
+- `lazygit` — terminal UI for git. A standalone convenience tool: nothing in this repo configures it or depends on it.
+- `zoxide` — frecency-based `cd`. The `.bashrc` initialises it last (its hook appends to `PROMPT_COMMAND`, which starship also sets), giving you `z <partial-name>` to jump and `zi` to pick interactively through fzf. The hook detects Git Bash and runs paths through `cygpath -w`, so the database stores Windows-style paths; it lives at `%LOCALAPPDATA%\zoxide\db.zo`, not under `~/.local/share`, and is machine-local, never synced.
 
 The `.bashrc` `update` alias chains the upgrades together: `choco upgrade all -y && uv tool upgrade ha-mcp && claude update`. `choco upgrade` needs an elevated shell, so run Git Bash as Administrator when you use it.
 
